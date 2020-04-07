@@ -37,9 +37,9 @@ int main(void) {
             
            
             allWeight = tmpA + tmpB + tmpC;
-            allWeight = allWeight & 0xFC;
+            allWeight = allWeight >> 2;
 
-            tmpD = allWeight | tmpD;
+            tmpD = (allWeight & 0xFC) | tmpD;
 
             PORTD = tmpD;
      }  
