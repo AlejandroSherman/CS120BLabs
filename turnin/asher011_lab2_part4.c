@@ -10,6 +10,7 @@
 #include <avr/io.h>
 #ifdef _SIMULATE_
 #include "simAVRHeader.h"
+#include <stdlib.h>
 #endif
 
 int main(void) {
@@ -31,17 +32,17 @@ int main(void) {
             if ((tmpA + tmpB + tmpC) > 140){
             tmpD = tmpD | 0x01;
             }
-            if ((~(tmpA - tmpC)+1) > 80){
+            if (abs(tmpA-tmpC) > 80){
             tmpD = tmpD | 0x02;
             }
-            
-           
+
+
             allWeight = tmpA + tmpB + tmpC;
-            allWeight = allWeight >> 2;
+            //allWeight = allWeight >> 2;
 
             tmpD = (allWeight & 0xFC) | tmpD;
 
             PORTD = tmpD;
-     }  
+     }
     return 0;
 }
