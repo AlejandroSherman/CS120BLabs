@@ -1,7 +1,7 @@
 /*	Author: asher011
  *  Partner(s) Name:
  *	Lab Section: 23
- *	Assignment: Lab #3  Exercise #2
+ *	Assignment: Lab #3  Exercise #3
  *	Exercise Description: [optional - include for your own benefit]
  *
  *	I acknowledge all content contained herein, excluding template or example
@@ -17,13 +17,24 @@ unsigned char GetBit(char port, char bit_position) {
 }
 
 int main(void) {
-    /* Insert DDR and PORT initializations */
+
+     /*Insert DDR and PORT initializations*/
     DDRA = 0x00; PORTA = 0xFF;//input
     DDRC = 0xFF; PORTC = 0x00;//output
-    /* Insert your solution below */
+    /*Insert your solution below*/
     unsigned char fuelLev = 0x00;
+    unsigned char tmpA,tmpB,tmpC = 0x00;
+
     while (1) {
-    fuelLev = PINA;
+
+    tmpA = PINA;
+    tmpA = ((tmpA & 0x10) >> 4) && 0x01;
+    tmpB = PINA;
+    tmpB = ((tmpB & 0x20) >> 5) && 0x01;
+    tmpC = PINA;
+    tmpC = ((tmpC & 0x40) >> 6) && 0x01;
+
+    fuelLev = PINA & 0x0F; // & 0x0F
     if ((fuelLev >= 0x01) && (fuelLev <= 0x02)) {
 				PORTC = 0x60;
 		}
@@ -43,6 +54,10 @@ int main(void) {
 				PORTC = 0x3F;
 		}
 
+    if((tmpA==0x01) && (tmpB==0x01) && (tmpC==0x00) ){ 
+      PORTC = PORTC | 0x80;
     }
+ }
     return 1;
+
 }
