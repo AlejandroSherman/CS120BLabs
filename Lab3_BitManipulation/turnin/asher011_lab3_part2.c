@@ -24,6 +24,9 @@ int main(void) {
     unsigned char fuelLev = 0x00;
     while (1) {
     fuelLev = PINA;
+		if ((fuelLev >= 0x00) && (fuelLev <= 0x01)) {
+				PORTC = 0x40;
+		}
     if ((fuelLev >= 0x01) && (fuelLev <= 0x02)) {
 				PORTC = 0x60;
 		}
