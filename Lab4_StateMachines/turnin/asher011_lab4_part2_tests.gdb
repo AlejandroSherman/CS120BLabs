@@ -39,50 +39,62 @@ echo Running all tests..."\n\n
 #checkResult
 
 # Add tests below
-test "PINA: 0x01 => PORTC: 8, state = INCREMENT"
+test "PINA: 0x01 => PORTC: 6, state = DECREMENT"
 set state = START
-setPINA 0x01
 continue 2
-expectPORTC 8
-expect state INCREMENT
+setPINA 0x02
+continue 2
+setPINA 0x00
+continue 2
+expectPORTC 6
+expect state INIT
 checkResult
 
+test "PINA: 0x01 => PORTC: 8, state = INCREMENT"
+set state = START
+continue 2
+setPINA 0x01
+continue 2
+setPINA 0x00
+continue 2
+expectPORTC 8
+expect state INIT
+checkResult
 
 test "PINA: 0x00 => PORTC: 0, state = RESET"
 set state = START
-setPINA 0x00
+continue 2
+setPINA 0x03
 continue 2
 expectPORTC 0
 expect state RESET
 checkResult
 
-test "PINA: 0x02 => PORTC: 0, state = DECREMENT"
-set state = START
-setPINA 0x02
-continue 2
-expectPORTC 0
-expect state DECREMENT
-checkResult
 
 test "PINA: 0x00, 0x00 => PORTC: 0, state = RESET"
 set state = START
-setPINA 0x00
 continue 2
 setPINA 0x00
+continue 2
+setPINA 0x03
 continue 2
 expectPORTC 0
 expect state RESET
 checkResult
 
-test "PINA: 0x00, 0x01 => PORTC: 1, state = INCREMENT"
+test "PINA: 0x00, 0x01 => PORTC: 1, state = INIT"
 set state = START
-setPINA 0x00
+continue 2
+setPINA 0x03
 continue 2
 setPINA 0x01
 continue 2
+setPINA 0x00
+continue 2
 expectPORTC 1
-expect state INCREMENT
+expect state INIT
 checkResult
+
 
 # Report on how many tests passed/tests ran
 set $passed=$tests-$failed

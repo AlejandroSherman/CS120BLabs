@@ -13,25 +13,26 @@
 //#include "RIMS.h"
 #endif
 
-enum STATES { START, INIT, INCREMENT, RESET, DECREMENT } state;
-	unsigned char count = 0x00;
+enum STATES { START, INIT, INCREMENT, WAIT1, RESET, DECREMENT, WAIT2} state;
+	unsigned char count = 0x07;
 
 void Tick()
 {
   switch(state) {   // Transitions
      case START:  // Initial transition
         state = INIT;
+        count = 7;
         break;
 
      case INIT:
-        if (PINA == 0x00) {
+        if (PINA == 0x03) {
            state = RESET;
         }
         else if (PINA == 0x01) {
-           state = INCREMENT;
+           state = WAIT1;
         }
         else if (PINA == 0x02) {
-           state = DECREMENT;
+           state = WAIT2;
         }
         else{
           state = INIT;
@@ -42,13 +43,37 @@ void Tick()
            state = INIT;
         break;
 
+     case WAIT1:
+        if (PINA == 0x01){
+           state = WAIT1;
+        }
+        else if (!(PINA == 0x01)) {
+           state = INCREMENT;
+        }
+        break;
+
       case RESET:
            state = INIT;
+           if (PINA == 0x03){
+              state = RESET;
+           }
+           else if (PINA == 0x00) {
+              state = INIT;
+           }
         break;
 
       case DECREMENT:
           state = INIT;
         break;
+
+      case WAIT2:
+         if (PINA == 0x02){
+            state = WAIT2;
+          }
+          else if (!(PINA == 0x02)) {
+            state = DECREMENT;
+          }
+          break;
 
      default:
         break;
@@ -65,13 +90,19 @@ void Tick()
         break;
 
       case DECREMENT:
-        if(count > 0){
+        if(count > 0x00){
           count--;
         }
-         break;
+        break;
 
       case RESET:
           count = 0;
+         break;
+
+      case WAIT1:
+        break;
+
+      case WAIT2:
          break;
 
      default:
