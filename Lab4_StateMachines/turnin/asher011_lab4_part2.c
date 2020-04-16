@@ -53,7 +53,6 @@ void Tick()
         break;
 
       case RESET:
-           state = INIT;
            if (PINA == 0x03){
               state = RESET;
            }
