@@ -39,54 +39,34 @@ echo Running all tests..."\n\n
 #checkResult
 
 # Add tests below
-test "PINA: 0x00 => PORTB: 0, state = INIT"
+test "PINA: 0x80 => PORTB: 0, state = UNLOCK"
+#setPINA 0x00
+#continue 2
 set state = START
 setPINA 0x00
 continue 2
-expectPORTB 0
-expect state INIT
-checkResult
-
-test "PINA: 0x00, 0x01 => PORTB: 0, state = COMB_1"
-set state = START
-setPINA 0x00
+setPINA 0x04
 continue 2
-setPINA 0x01
-continue 2
-expectPORTB 0
 expect state COMB_1
 checkResult
 
 
-test "PINA: 0x00, 0x01, 0x00 => PORTB: 0, state = WAIT"
+test "PINA: 0x80 => PORTB: 0, state = UNLOCK"
+#setPINA 0x00
+#continue 2
 set state = START
 setPINA 0x00
 continue 2
-setPINA 0x01
+setPINA 0x04
 continue 2
 setPINA 0x00
 continue 2
-expectPORTB 0
-expect state WAIT
-checkResult
-
-test "PINA: 0x00 => PORTB: 0, state = UNLOCK"
-set state = COMB_2
+setPINA 0x02
+continue 2
 setPINA 0x00
 continue 2
 expectPORTB 0x01
-expect state UNLOCK
-checkResult
-
-
-test "PINA: 0x80 => PORTB: 0, state = INIT"
-#setPINA 0x00
-#continue 2
-set state = UNLOCK
-setPINA 0x80
-continue 2
-expectPORTB 0x00
-expect state INIT
+expect state OPEN
 checkResult
 
 
