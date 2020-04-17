@@ -19,42 +19,43 @@ void Tick()
 {
   switch(state) {   // Transitions
      case START:  // Initial transition
-        state = INIT;
+        state = WAIT1;
+        PORTB = 1;
         break;
 
      case INIT:
         if (!((PINA && 0x01) == 1)) {
-           state = INIT;
+           state = WAIT1;
         }
         else if ((PINA && 0x01) == 1) {
-           state = WAIT1;
+           state = INIT;
         }
         break;
 
      case WAIT1:
         if ((PINA && 0x01) == 1) {
-           state = WAIT1;
+           state = INVERSE_LIGHTS;
         }
         else if (!((PINA && 0x01) == 1)) {
-           state = INVERSE_LIGHTS;
+           state = WAIT1;
         }
         break;
 
       case INVERSE_LIGHTS:
         if (!((PINA && 0x01) == 1)) {
-          state = INVERSE_LIGHTS;
+          state = WAIT2;
         }
         else if ((PINA && 0x01) == 1) {
-          state = WAIT2;
+          state = INVERSE_LIGHTS;
         }
         break;
 
       case WAIT2:
         if ((PINA && 0x01) == 1) {
-          state = WAIT2;
+          state = INIT;
         }
         else if (!((PINA && 0x01) == 1)) {
-          state = INIT;
+          state = WAIT2;
         }
         break;
 

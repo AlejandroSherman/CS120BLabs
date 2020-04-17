@@ -39,55 +39,55 @@ echo Running all tests..."\n\n
 #checkResult
 
 # Add tests below
-test "PINA: 0x00 => PORTB: 1, state: INIT"
-set state = INIT
+test "PINA: 0x00 => PORTB: 1, state: WAIT1"
+set state = START
 setPINA 0x00
-continue 2
-expectPORTB 0x01
-expect state INIT
-checkResult
-
-
-test "PINA: 0x00, 0x01 => PORTB: 1, state: wait1"
-set state = INIT
-setPINA 0x00
-continue 2
-setPINA 0x01
 continue 2
 expectPORTB 0x01
 expect state WAIT1
 checkResult
 
 
-test "PINA: 0x00, 0x01, 0x00 => PORTB: 2, state: inverse_lights"
-set state = INIT
+test "PINA: 0x00, 0x01 => PORTB: 1, state: INVERSE_LIGHTS"
+set state = START
 setPINA 0x00
 continue 2
 setPINA 0x01
-continue 2
-setPINA 0x00
 continue 2
 expectPORTB 0x02
 expect state INVERSE_LIGHTS
 checkResult
 
 
-test "PINA: 0x00, 0x01, 0x00, 0x01 => PORTB: 2, state: wait2"
-set state = INIT
+test "PINA: 0x00, 0x01, 0x00 => PORTB: 2, state: WAIT2"
+set state = START
 setPINA 0x00
 continue 2
 setPINA 0x01
 continue 2
 setPINA 0x00
-continue 2
-setPINA 0x01
 continue 2
 expectPORTB 0x02
 expect state WAIT2
 checkResult
 
 
-test "PINA: 0x00, 0x01, 0x00, 0x01, 0x01 => PORTB: 2, state: Init
+test "PINA: 0x00, 0x01, 0x00, 0x01 => PORTB: 2, state: INIT"
+set state = START
+setPINA 0x00
+continue 2
+setPINA 0x01
+continue 2
+setPINA 0x00
+continue 2
+setPINA 0x01
+continue 2
+expectPORTB 0x01
+expect state INIT
+checkResult
+
+
+test "PINA: 0x00, 0x01, 0x00, 0x01, 0x01 => PORTB: 2, state: WAIT1"
 set state = INIT
 setPINA 0x00
 continue 2
@@ -100,7 +100,7 @@ continue 2
 setPINA 0x00
 continue 2
 expectPORTB 0x01
-expect state INIT
+expect state WAIT1
 checkResult
 
 # Report on how many tests passed/tests ran
