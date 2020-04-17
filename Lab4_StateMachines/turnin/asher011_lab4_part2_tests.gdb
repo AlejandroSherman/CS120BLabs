@@ -39,6 +39,25 @@ echo Running all tests..."\n\n
 #checkResult
 
 # Add tests below
+test "PINA: 0x00, 0x01 => PORTC: 1, state = INIT"
+set state = START
+continue 2
+setPINA 0x01
+continue 2
+setPINA 0x00
+continue 2
+setPINA 0x01
+continue 2
+setPINA 0x00
+continue 2
+setPINA 0x02
+continue 2
+setPINA 0x00
+continue 2
+expectPORTC 8
+expect state INIT
+checkResult
+
 test "PINA: 0x01 => PORTC: 6, state = DECREMENT"
 set state = START
 continue 2
@@ -61,39 +80,17 @@ expectPORTC 8
 expect state INIT
 checkResult
 
-test "PINA: 0x00 => PORTC: 0, state = RESET"
+test "PINA: 0x00 => PORTC: 0, state = INIT"
 set state = START
 continue 2
 setPINA 0x03
 continue 2
 expectPORTC 0
-expect state RESET
-checkResult
-
-
-test "PINA: 0x00, 0x00 => PORTC: 0, state = RESET"
-set state = START
-continue 2
-setPINA 0x00
-continue 2
-setPINA 0x03
-continue 2
-expectPORTC 0
-expect state RESET
-checkResult
-
-test "PINA: 0x00, 0x01 => PORTC: 1, state = INIT"
-set state = START
-continue 2
-setPINA 0x03
-continue 2
-setPINA 0x01
-continue 2
-setPINA 0x00
-continue 2
-expectPORTC 1
 expect state INIT
 checkResult
+
+
+
 
 
 # Report on how many tests passed/tests ran

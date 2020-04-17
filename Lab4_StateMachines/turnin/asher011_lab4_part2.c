@@ -29,48 +29,46 @@ void Tick()
            state = RESET;
         }
         else if (PINA == 0x01) {
-           state = WAIT1;
+           state = INCREMENT;
         }
         else if (PINA == 0x02) {
-           state = WAIT2;
-        }
-        else{
-          state = INIT;
+           state = DECREMENT;
         }
         break;
 
      case INCREMENT:
-           state = INIT;
+           state = WAIT1;
         break;
 
      case WAIT1:
         if (PINA == 0x01){
            state = WAIT1;
         }
-        else if (!(PINA == 0x01)) {
-           state = INCREMENT;
+        else if (PINA == 0x00) {
+           state = INIT;
+        }
+        else if (PINA == 0x03) {
+           state = RESET;
         }
         break;
 
       case RESET:
-           if (PINA == 0x03){
-              state = RESET;
-           }
-           else if (PINA == 0x00) {
-              state = INIT;
-           }
+           state = INIT;
         break;
 
       case DECREMENT:
-          state = INIT;
+          state = WAIT2;
         break;
 
       case WAIT2:
          if (PINA == 0x02){
             state = WAIT2;
           }
-          else if (!(PINA == 0x02)) {
-            state = DECREMENT;
+          else if (PINA == 0x00) {
+            state = INIT;
+          }
+          else if (PINA == 0x03) {
+             state = RESET;
           }
           break;
 
@@ -89,7 +87,7 @@ void Tick()
         break;
 
       case DECREMENT:
-        if(count > 0x00){
+        if(count > 0){
           count--;
         }
         break;
