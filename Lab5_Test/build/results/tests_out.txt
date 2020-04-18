@@ -1,0 +1,5 @@
+Breakpoint 1 at 0xea: file source/main.c, line 20.
+Note: automatically using hardware breakpoints for read-only addresses.
+Undefined command: "exit".  Try "help".
+Detaching from program: /home/lab/UCRCS120B_AVRTools/CS120BLabs/Lab5_Test/build/objects/main.elf, Remote target
+Remote doesn't know how to detach
