@@ -300,8 +300,8 @@ break;
     break;
 
     case INIT:
-    PORTC = 0x00;
-		//PORTB = 0x00;
+    //PORTC = 0x00;
+		PORTB = 0x00;
     break;
 
 
@@ -310,8 +310,8 @@ break;
 
 
     case SET1:
-    PORTC = 0x02;
-    //PORTB = 0x15;
+    //PORTC = 0x02;
+    PORTB = 0x02;
       break;
 
 
@@ -320,8 +320,8 @@ break;
 
 
     case SET2:
-    PORTC = 0x05;
-    //PORTB = 0x29;
+    //PORTC = 0x05;
+    PORTB = 0x05;
     break;
 
 
@@ -330,8 +330,8 @@ break;
 
 
     case SET3:
-    PORTC = 0x0A;
-		//PORTB = 0x33;
+    //PORTC = 0x0A;
+		PORTB = 0x0A;
     break;
 
 
@@ -340,8 +340,8 @@ break;
 
 
     case SET4:
-    PORTC = 0x15;
-    //PORTB = 0x0C;
+    //PORTC = 0x15;
+    PORTB = 0x15;
     break;
 
 
@@ -350,8 +350,8 @@ break;
 
 
     case SET5:
-    PORTC = 0x2A;
-    //PORTB = 0x0C;
+    //PORTC = 0x2A;
+    PORTB = 0x2A;
     break;
 
 		case WAIT6:
@@ -359,8 +359,8 @@ break;
 
 
     case SET6:
-    PORTC = 0x55;
-    //PORTB = 0x0C;
+    //PORTC = 0x55;
+    PORTB = 0x55;
     break;
 
 		case WAIT7:
@@ -368,8 +368,8 @@ break;
 
 
     case SET7:
-    PORTC = 0x00;
-    //PORTB = 0x0C;
+    //PORTC = 0x00;
+    PORTB = 0x00;
     break;
 
 		case WAIT8:
@@ -377,8 +377,8 @@ break;
 
 
     case SET8:
-    PORTC = 0x00;
-    //PORTB = 0x15;
+    //PORTC = 0x00;
+    PORTB = 0x00;
       break;
 
 
@@ -387,8 +387,8 @@ break;
 
 
     case SET9:
-    PORTC = 0x20;
-    //PORTB = 0x29;
+    //PORTC = 0x20;
+    PORTB = 0x20;
     break;
 
 
@@ -397,8 +397,8 @@ break;
 
 
     case SET10:
-    PORTC = 0x50;
-		//PORTB = 0x33;
+    //PORTC = 0x50;
+		PORTB = 0x50;
     break;
 
 
@@ -407,8 +407,8 @@ break;
 
 
     case SET11:
-    PORTC = 0x28;
-    //PORTB = 0x0C;
+    //PORTC = 0x28;
+    PORTB = 0x28;
     break;
 
 
@@ -417,8 +417,8 @@ break;
 
 
     case SET12:
-    PORTC = 0x54;
-    //PORTB = 0x0C;
+    //PORTC = 0x54;
+    PORTB = 0x54;
     break;
 
 		case WAIT13:
@@ -426,8 +426,8 @@ break;
 
 
     case SET13:
-    PORTC = 0x2A;
-    //PORTB = 0x0C;
+    //PORTC = 0x2A;
+    PORTB = 0x2A;
     break;
 
 		case WAIT14:
@@ -435,8 +435,8 @@ break;
 
 
     case SET14:
-    PORTC = 0x55;
-    //PORTB = 0x0C;
+    //PORTC = 0x55;
+    PORTB = 0x55;
     break;
 
 		case WAIT15:
@@ -448,7 +448,8 @@ break;
  int main(void) {
     /* Insert DDR and PORT initializations */
 		DDRA = 0x00; PORTA = 0xFF;
-		DDRC = 0xFF; PORTC = 0x00;
+		//DDRC = 0xFF; PORTC = 0x00;
+    DDRB = 0xFF; PORTB = 0x00;
     /* Insert your solution below */
     while (1) {
       tick();
