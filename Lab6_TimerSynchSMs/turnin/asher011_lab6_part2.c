@@ -20,7 +20,7 @@ unsigned long _avr_timer_M = 1;
 unsigned long _avr_timer_cntcurr = 0;
 
 enum STATES { START, LED_1, LED_2, LED_3, LED_4, WAIT, WAIT2, STOP } state;
-
+unsigned char i = 0x00;
 //unsigned char output = 0x00;
 
 void TimerOn() {
@@ -77,8 +77,12 @@ void tick() {
    if(button){
     state = WAIT;
    }
-   else{
+   else if ((!button) && (i <= 3)){
+   state = LED_1;
+   }
+   else if ((!button) && (i > 3)){
    state = LED_2;
+   i = 0;
    }
    break;
 
@@ -87,8 +91,12 @@ void tick() {
    if(button){
     state = WAIT;
    }
-   else{
+   else if ((!button) && (i <= 3)){
+   state = LED_2;
+   }
+   else if ((!button) && (i > 3)){
    state = LED_3;
+   i = 0;
    }
    break;
 
@@ -97,8 +105,12 @@ void tick() {
    if(button){
     state = WAIT;
    }
-   else{
+   else if ((!button) && (i <= 3)){
+   state = LED_3;
+   }
+   else if ((!button) && (i > 3)){
    state = LED_4;
+   i = 0;
    }
    break;
 
@@ -106,8 +118,12 @@ void tick() {
    if(button){
     state = WAIT;
    }
-   else{
-   state = LED_1;
+   else if ((!button) && (i <= 3)){
+   state = LED_4;
+   }
+   else if ((!button) && (i > 3)){
+   state = START;
+   i = 0;
    }
    break;
 
@@ -144,7 +160,7 @@ void tick() {
      state = WAIT2;
    }
    else {
-     state = LED_1;
+     state = START;
    }
    break;
    }
@@ -152,25 +168,30 @@ void tick() {
 
  switch(state) {
    case START:
+   i = 0;
    break;
 
 
    case LED_1:
    PORTB = 0x01;
+   i++;
    break;
 
 
    case LED_2:
    PORTB = 0x02;
+   i++;
    break;
 
 
    case LED_3:
    PORTB = 0x04;
+   i++;
    break;
 
    case LED_4:
    PORTB = 0x02;
+   i++;
    break;
 
 
@@ -194,7 +215,7 @@ int main(void) {
    /* Insert DDR and PORT initializations */
    DDRA = 0x00; PORTA = 0xFF;
    DDRB = 0xFF; PORTB = 0x00;
-   TimerSet(30); //set timer here
+   TimerSet(10); //set timer here
    TimerOn(); //turn on timer
    state = START; //change to START state
 
