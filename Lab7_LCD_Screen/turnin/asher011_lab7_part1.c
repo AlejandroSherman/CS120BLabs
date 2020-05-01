@@ -159,6 +159,8 @@ void tick()
      case INCREMENT:
         if(count < 9){
           count++;
+          LCD_ClearScreen();
+          LCD_WriteData(count + '0');
         }
         i = 0;
         break;
@@ -166,12 +168,16 @@ void tick()
       case DECREMENT:
         if(count > 0){
           count--;
+          LCD_ClearScreen();
+          LCD_WriteData(count + '0');
         }
         i = 0;
         break;
 
       case RESET:
           count = 0;
+          LCD_ClearScreen();
+          LCD_WriteData(count + '0');
          break;
 
       case WAIT1:
@@ -202,10 +208,8 @@ int main(void) {
    count = 0;
    /* Insert your solution below */
    while (1) {
-     LCD_ClearScreen();
      tick();
-     PORTC = count;
-     LCD_WriteData(count + '0');
+     //PORTC = count;
      while (!TimerFlag);
      TimerFlag = 0;
    }
